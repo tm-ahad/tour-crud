@@ -1,0 +1,21 @@
+{
+  "port": 5000,
+  "hostname": "localhost",
+  "corsconfig": {
+    "method": "POST",
+    "origin": "http://localhost:3000"
+  },
+  "dbconfig": {
+    "dburi": "mongodb://localhost:27017",
+    "dbname": "CRUD_DB"
+  },
+  "jwt": {
+    "secretkey": "$JWT_SECRET_KEY: Cicada~)!(@*#&$^%",
+    "hashrounds": 6,
+    "expiresin": 86400000
+  },
+  "net": {
+    "port": 8080,
+    "hostname": "localhost"
+  }
+}
