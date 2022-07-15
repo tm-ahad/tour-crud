@@ -1,24 +1,26 @@
 import User from "../models/user.js";
-import Tour from "../models/tour.js";
+import p from "../models/tour.js";
+
+const { Tour } = p
 
 const tourController = {
-   bookTour({ app, body: {title, place, date, description, image, tour} }, { status }){
-      let user = User.findOne(app.get('user'));
-      user = User.create({title, place, date, description, image, tours: [...user.tours, Tour.create(tour)]});
-      status(201).send('tour booked successfully');
+   bookTour({ app, user, body: {title, place, date, description, image} }, res){
+      Tour.create({ title, place, date, description, image})
+         .then(() => {
+            user.update(new User({ name: user.populate('name') }));
+            res.status(201).send('tour booked successfully');
+         }).catch(err => console.log(err.message));
    },
    cancelTour({ body: { id } }, { status }){
       let user = User.findOne(app.get('user'));
       let { name, age, email, accountname, password, tours } = user;
       Tour.deleteOne({ _id: id })
-      user = { name, age, email, accountname, password, tours: tours.filter(tour => tour === user.findOne({ _id: id }))}
       status(201).send('tour booked successfully');
    },
    updateTour({ body: { id, update } }){
       let user = User.findOne(app.get('user'));
       let { name, age, email, accountname, password, tours } = user;
       Tour.findOneAndUpdate({ _id : id }, update)
-      user = { name, age, email, accountname, password, tours: [...tours.filter(val => val !== Tour.findOne({ _id: id })), new Tour(update)]}
       status(201).send('tour booked successfully');
    },
 };

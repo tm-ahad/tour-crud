@@ -9,20 +9,20 @@ import morgan from 'morgan';
 import http from 'http';
 import tourController from './controllers/tourController.js';
 import userController from './controllers/userControllers.js';
-import { Worker, parentPort } from 'worker_threads';
-
-let worker = new Worker('./app.js');
+import cookieParser from 'cookie-parser'
 
 let cpuArr = os.cpus();
 const app = express();
 const port = config.port || 5000;
 
 if (cluster.isWorker){
+   let j = 0;
    app.use(bodyParser.urlencoded({extended: true }));
    app.use(bodyParser.json());
    app.use(express.json());
    app.use(cors(config.corsconfig));
-   app.use();
+   app.use(morgan('dev'));
+   app.use(cookieParser());
 
    app.post('/create', tourController.bookTour);
    app.post('/delete', tourController.cancelTour);
@@ -32,24 +32,27 @@ if (cluster.isWorker){
    http.createServer(app).listen(port, () => {
          console.log(`app listening ${process.pid} on port ${port}`);
    });
-   worker.on()
    await connectdb();
 } else {
-   let i = 0;
-   let currentCPU;
-   while (i !== (cpuArr.length - 1)) {
-      currentCPU = cpuArr[i];
+   for (let cpus of cpuArr){
       cluster.fork();
       console.log('Cluster created');
-      i++;
    }
-   cluster.on('exit', () => {
-      console.log('Cluster destroyed');
-   });
    cluster.on('error', err => {
       console.log(`Cluster error: ${err.message}`);
+      cluster.emit('exit');
    });
    cluster.on('online', worker => {
       console.log(`worker is online: ${worker.id}`);
    });
+   cluster.on('disconnect', () => {
+      console.log(`Cluster destroyed.`);
+      cluster.emit('exit');
+   })
+   cluster.on('setup', () => {
+      console.log('Cluster ready to use');
+   })
+   cluster.on('listening', () => {
+      console.log('cluster listening');
+   })
 }

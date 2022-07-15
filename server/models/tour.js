@@ -13,12 +13,6 @@ let tourSchema = new Schema({
    place: {
       type: String,
       required: true,
-      validate: {
-         validator: function (value){
-            return validator.placevalidator(value)
-         },
-         message: 'The place is not valid'
-      },
       required: [true, 'place is required']
    },
    date: {

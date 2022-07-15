@@ -13,6 +13,7 @@
     "call-bind": "^1.0.2",
     "combined-stream": "^1.0.8",
     "content-type": "^1.0.4",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "debug": "^2.6.9",
     "delayed-stream": "^1.0.0",
