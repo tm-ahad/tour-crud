@@ -48,6 +48,12 @@ let schema = new Schema({
    Tours: [tourSchema]
 })
 
+schema.pre('save', () => console.log('doc saving...'));
+schema.post('save', doc => {
+   console.log('1 doc saved succsessfully');
+   console.table(doc);
+});
+
 let User = model('User', schema);
 
 export default User

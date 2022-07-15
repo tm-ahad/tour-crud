@@ -3,5 +3,11 @@
   "age": 9,
   "email": "tahmid@gmail.com",
   "password": "~)!(@*#&$^#(^#$%^&*(",
-  "accountname": "TM account"
+  "accountname": "TM account",
+  "tour": {
+    "title": "DHAKA",
+    "place": "dhaka",
+    "date": "2022.08.16",
+    "description": "demo descriptions"
+  }
 }

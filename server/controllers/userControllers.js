@@ -4,7 +4,7 @@ import config from '../config/config.json' assert {type: 'json'};
 import tokenizer from '../auth/auth.js';
 
 const userController = {
-   register: async function({ body }, res){
+   register: async function({ body, app }, res){
         (Object.keys(body).length === 0) ? res.status(404).send(body) : (async () => {
             bcrypt.hash(body.password, config.jwt.hashrounds, (err, hashedPassword) => {
                err ? (() => { throw err }): (() => {
@@ -12,12 +12,8 @@ const userController = {
                   User.create(body)
                      .then(() => {
                         let token = tokenizer(body);
-                        res.status(201).send(`User created:`);
-                        app.setHeader('Set-Cookie', `token=${token}`);
+                        res.status(201).send(`User created: ${token}`);
                      })
-                     .catch(err => {
-                        res.status(400).send(`Validation error occurred. There are - \n${err}`);
-                     });
                })()
             });
         })()
@@ -31,9 +27,6 @@ const userController = {
          !findedUser.email ? res.status(204).send('Invalid email') :
          !findedUser.password ? res.status(204).send('Invalid password') :
          res.status(500).send('something wrong. sorry for that');
-   },
-   debug: async function(req, res){
-      res.send('Hello');
    }
 };
 

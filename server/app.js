@@ -9,6 +9,9 @@ import morgan from 'morgan';
 import http from 'http';
 import tourController from './controllers/tourController.js';
 import userController from './controllers/userControllers.js';
+import { Worker, parentPort } from 'worker_threads';
+
+let worker = new Worker('./app.js');
 
 let cpuArr = os.cpus();
 const app = express();
@@ -19,19 +22,18 @@ if (cluster.isWorker){
    app.use(bodyParser.json());
    app.use(express.json());
    app.use(cors(config.corsconfig));
-   app.use(morgan('dev'));
+   app.use();
 
    app.post('/create', tourController.bookTour);
    app.post('/delete', tourController.cancelTour);
    app.post('/update', tourController.updateTour);
-   app.post('/register', userController.register)
-   app.post('/login', userController.login)
-
+   app.post('/register', userController.register);
+   app.post('/login', userController.login);
    http.createServer(app).listen(port, () => {
-      console.log(`app listening ${process.pid} on port ${port}`);
+         console.log(`app listening ${process.pid} on port ${port}`);
    });
-   connectdb()
-         .then(() => console.log('Database connected'));
+   worker.on()
+   await connectdb();
 } else {
    let i = 0;
    let currentCPU;
