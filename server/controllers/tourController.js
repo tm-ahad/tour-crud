@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 const { Tour } = p;
 
 const tourController = {
-   bookTour: async ({ app, cookies, body: {title, place, date, description, image} }, res) => {
+   bookTour: async ({ cookies, body: {title, place, date, description, image} }, res) => {
       let tour = new Tour({ title, place, date, description, image })
       const user = jwt.decode(cookies.token);
       const dbObj = {...user};
@@ -14,28 +14,20 @@ const tourController = {
       await User.findOneAndUpdate({email: user.email}, {...dbObj, Tours: [...dbObj.Tours, tour]})
       res.status(201).send('Tour created on user succsessfully');
    },
-   cancelTour({ body: { id } }, { status }){
+   cancelTour: async ({ body: { id }, cookies }, res) => {
       const user = jwt.decode(cookies.token);
-      User.findOneAndUpdate(user, new User({ 
-         name: user.name,
-         age: user.age,
-         email: user.email,
-         password: user.passwors,
-         accountName: user.accountName,
-         Tours: new Tour({})
-       }));
-      res.status(201).send('Tour deleted on user succsessfully');
+      const dbObj = {...user};
+      delete dbObj.iat;
+      delete dbObj.exp;
+      delete dbObj.Tours;
+      User.findOne({ email: user.email }).updateOne({}, { 
+         $pull: { Tours: { _id: id } }
+       }).then(() => res.status(200).send('Tour deleted😎'))
    },
-   updateTour({ body: { update } }){
+   updateTour({ req, res }){
       const user = jwt.decode(cookies.token);
-      User.findOneAndUpdate(user, new User({ 
-         name: user.name,
-         age: user.age,
-         email: user.email,
-         password: user.passwors,
-         accountName: user.accountName,
-         Tours: new Tour(update)
-       }));
+      this.cancelTour(req, res);
+      this.bookTour(req, res);
       res.status(201).send('Tour updated on user succsessfully');
    },
 };

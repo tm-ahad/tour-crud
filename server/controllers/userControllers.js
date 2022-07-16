@@ -58,7 +58,7 @@ const userController = {
                   res.status(200).send('Login succsess');
                } else {
                   res.status(400).send('Invalid Password');
-               }
+               }  
             }
          }
       });
