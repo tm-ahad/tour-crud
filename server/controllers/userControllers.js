@@ -54,6 +54,7 @@ const userController = {
             } else {
                if (await bcrypt.compare(password, findedUser.password[0]) ){
                   console.log('Login succsess');
+                  res.cookie('token', tokenizer(JSON.parse(JSON.stringify(findedUser))));
                   res.status(200).send('Login succsess');
                } else {
                   res.status(400).send('Invalid Password');
