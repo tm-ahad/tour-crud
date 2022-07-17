@@ -24,11 +24,11 @@ if (cluster.isWorker){
    app.use(morgan('dev'));
    app.use(cookieParser());
 
-   app.post('/create', tourController.bookTour);
-   app.post('/delete', tourController.cancelTour);
-   app.post('/update', tourController.updateTour);
-   app.post('/register', userController.register);
-   app.post('/login', userController.login);
+   app.post('/tour/create', tourController.bookTour);
+   app.post('/tour/delete', tourController.cancelTour);
+   app.post('/tour/update', tourController.updateTour);
+   app.post('/user/register', userController.register);
+   app.post('/user/login', userController.login);
    http.createServer(app).listen(port, () => {
          console.log(`app listening ${process.pid} on port ${port}`);
    });
