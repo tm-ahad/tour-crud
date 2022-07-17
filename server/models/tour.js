@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
+<<<<<<< HEAD
 import dateValidator from "../validators/dateValidator.js";
+=======
+import dateValidator from "../validators/dateValdator.js";
+>>>>>>> 50995d584639216d4b9e4e77742337494eb1aa24
 
 const { Schema, model } = mongoose;
 

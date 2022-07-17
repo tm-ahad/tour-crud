@@ -1,7 +1,7 @@
-import User from "../models/user.js";
-import p from "../models/tour.js";
 import jwt from 'jsonwebtoken';
 import tokenizer from "../auth/auth.js";
+import p from "../models/tour.js";
+import User from "../models/user.js";
 
 const { Tour } = p;
 
