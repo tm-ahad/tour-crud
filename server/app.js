@@ -18,8 +18,6 @@ const port = config.port || 5001;
 if (cluster.isWorker){
    let j = 0;
 
-   app.on('error', err => console.log(err))
-
    app.use(bodyParser.urlencoded({extended: true }));
    app.use(bodyParser.json());
    app.use(express.json());
