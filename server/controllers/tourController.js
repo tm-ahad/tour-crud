@@ -1,14 +1,14 @@
-import User from "../models/user.js";
-import p from "../models/tour.js";
 import jwt from 'jsonwebtoken';
 import tokenizer from "../auth/auth.js";
+import p from "../models/tour.js";
+import User from "../models/user.js";
 
 const { Tour } = p;
 
 const tourController = {
    bookTour: async ({ cookies, body: {title, place, date, description, image} }, res) => {
       let tour = new Tour({ title, place, date, description, image })
-      if (cookies.token){
+      if (!cookies.token){
          res.status(400).send('Please login😒🤨');
       } else {
          const user = jwt.decode(cookies.token);
@@ -23,7 +23,7 @@ const tourController = {
       }
    },
    cancelTour: async ({ body: { id }, cookies }, res) => {
-      if (cookies.token){
+      if (!cookies.token){
          res.status(400).send('Please login😒🤨');
       } else {
          const { email } = jwt.decode(cookies.token);
@@ -36,7 +36,7 @@ const tourController = {
       }
    },
    updateTour: async ({ body: { index, update }, cookies }, res) => {
-      if (cookies.token){
+      if (!cookies.token){
          res.status(400).send('Please login😒🤨');
       } else {
          const { email } = jwt.decode(cookies.token);

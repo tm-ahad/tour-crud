@@ -13,7 +13,7 @@ import userController from './controllers/userControllers.js';
 
 let cpuArr = os.cpus();
 const app = express();
-const port = config.port || 5000;
+const port = config.port || 5001;
 
 if (cluster.isWorker){
    let j = 0;
