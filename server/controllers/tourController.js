@@ -13,7 +13,7 @@ const tourController = {
       delete dbObj.iat;
       delete dbObj.exp;
       await User.findOneAndUpdate({email: user.email}, {...dbObj, Tours: [...dbObj.Tours, tour]})
-      res.status(201).send('Tour created on user succsessfully');
+      res.status(201).send('Tour created on user succsessfully👌!');
       await User.findOne({ email: user.email }, (err, findedUser) => {
          cookies.token = tokenizer(findedUser);
       });
@@ -42,7 +42,7 @@ const tourController = {
                password,
                accountName, 
                Tours: userTours
-            }).then(() => res.status(200).send('Op!'));
+            }).then(() => res.status(200).send('Tour updated succsessfully👍!'));
          }
       })
    },

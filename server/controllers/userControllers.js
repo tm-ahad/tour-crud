@@ -45,19 +45,19 @@ const userController = {
       User.findOne(query, async (err, findedUser) => {
          message && res.status(400).send(message.value);
          if (err){
-            res.status(500).send('Internal server error');
+            res.status(500).send('Internal server error😭!');
             throw err;
          } else {
             if (!findedUser){
                console.log('User not found');
-               res.status(203).send('User not found');
+               res.status(203).send('User not found😠!');
             } else {
                if (await bcrypt.compare(password, findedUser.password[0]) ){
                   console.log('Login succsess');
                   res.cookie('token', tokenizer(JSON.parse(JSON.stringify(findedUser))));
                   res.status(200).send('Login succsess');
                } else {
-                  res.status(400).send('Invalid Password');
+                  res.status(400).send('Invalid Password😭');
                }  
             }
          }

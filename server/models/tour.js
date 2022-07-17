@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import dateValidator from "../validators/dateValdator";
 
 const { Schema, model } = mongoose
 
@@ -17,7 +18,11 @@ let tourSchema = new Schema({
    },
    date: {
       type: String,
-      required: [true, 'date is required']
+      required: [true, 'date is required'],
+      validator: {
+         validate: dateValidator,
+         message: 'Enter a valid date'
+      }
    },
    image: String,
    description: {
