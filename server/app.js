@@ -29,6 +29,7 @@ if (cluster.isWorker){
    app.post('/tour/update', tourController.updateTour);
    app.post('/user/register', userController.register);
    app.post('/user/login', userController.login);
+   app.post('/user/logout', userController)
    http.createServer(app).listen(port, () => {
          console.log(`app listening ${process.pid} on port ${port}`);
    });
