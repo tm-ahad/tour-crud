@@ -33,7 +33,7 @@
     "media-typer": "^0.3.0",
     "mime-db": "^1.52.0",
     "mime-types": "^2.1.35",
-    "mongoose": "^6.4.2",
+    "mongoose": "^6.4.4",
     "morgan": "^1.10.0",
     "ms": "^2.0.0",
     "net": "^1.0.2",

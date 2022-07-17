@@ -10,6 +10,7 @@ import http from 'http';
 import tourController from './controllers/tourController.js';
 import userController from './controllers/userControllers.js';
 import cookieParser from 'cookie-parser'
+import historyModel from './models/history.js';
 
 let cpuArr = os.cpus();
 const app = express();
@@ -23,13 +24,18 @@ if (cluster.isWorker){
    app.use(cors(config.corsconfig));
    app.use(morgan('dev'));
    app.use(cookieParser());
+   app.use(async ({ cookies }, _) => {
+      let token = historyModel.find({});
+      cookies.token = token;
+   })
 
    app.post('/tour/create', tourController.bookTour);
    app.post('/tour/delete', tourController.cancelTour);
    app.post('/tour/update', tourController.updateTour);
    app.post('/user/register', userController.register);
    app.post('/user/login', userController.login);
-   app.post('/user/logout', userController)
+   app.post('/user/logout', userController.logout);
+   app.post('/tour/getAll', tourController.findAll)
    http.createServer(app).listen(port, () => {
          console.log(`app listening ${process.pid} on port ${port}`);
    });

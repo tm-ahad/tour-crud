@@ -2,6 +2,8 @@ import User from '../models/user.js';
 import bcrypt from 'bcrypt';
 import config from '../config/config.json' assert {type: 'json'};
 import tokenizer from '../auth/auth.js';
+import historyModel from '../models/history.js';
+import jwt from 'jsonwebtoken';
 
 const userController = {
    register: async function(req, res){
@@ -52,10 +54,15 @@ const userController = {
                console.log('User not found');
                res.status(203).send('User not found😠!');
             } else {
+               const token = tokenizer(JSON.parse(JSON.stringify(findedUser)))
                if (await bcrypt.compare(password, findedUser.password[0]) ){
                   console.log('Login succsess');
-                  res.cookie('token', tokenizer(JSON.parse(JSON.stringify(findedUser))));
-                  res.status(200).send('Login succsess');
+                  res.cookie('token', token);
+                  let allDoc = await historyModel.find({});
+                  await historyModel.updateOne({ id: allDoc[0]._id }, {
+                     token
+                  });
+                  res.status(200).send('Login succsess😎');
                } else {
                   res.status(400).send('Invalid Password😭');
                }  
