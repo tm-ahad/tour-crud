@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import dateValidator from "../validators/dateValdator";
+import dateValidator from "../validators/dateValdator.js";
 
 const { Schema, model } = mongoose
 

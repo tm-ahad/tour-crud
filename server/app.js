@@ -1,15 +1,15 @@
-import express from 'express';
-import cors from 'cors';
-import cluster from 'cluster';
-import os from 'os';
-import config from './config/config.json' assert {type: "json"};
 import bodyParser from 'body-parser';
-import connectdb from './config/connectdb.js';
-import morgan from 'morgan';
+import cluster from 'cluster';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import express from 'express';
 import http from 'http';
+import morgan from 'morgan';
+import os from 'os';
+import config from './config/config.json' assert { type: "json" };
+import connectdb from './config/connectdb.js';
 import tourController from './controllers/tourController.js';
 import userController from './controllers/userControllers.js';
-import cookieParser from 'cookie-parser'
 
 let cpuArr = os.cpus();
 const app = express();
@@ -17,6 +17,9 @@ const port = config.port || 5000;
 
 if (cluster.isWorker){
    let j = 0;
+
+   app.on('error', err => console.log(err))
+
    app.use(bodyParser.urlencoded({extended: true }));
    app.use(bodyParser.json());
    app.use(express.json());
@@ -29,7 +32,7 @@ if (cluster.isWorker){
    app.post('/tour/update', tourController.updateTour);
    app.post('/user/register', userController.register);
    app.post('/user/login', userController.login);
-   app.post('/user/logout', userController)
+   app.post('/user/logout', userController.logout);
    http.createServer(app).listen(port, () => {
          console.log(`app listening ${process.pid} on port ${port}`);
    });
