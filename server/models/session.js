@@ -5,5 +5,5 @@ const { Schema, model } = mongoose;
 const schema = new Schema({
    token: String
 });
-const historyModel = model('history', schema);
-export default historyModel;
+const sessionModel = model('session', schema);
+export default sessionModel;

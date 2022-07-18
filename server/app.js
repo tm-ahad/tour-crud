@@ -1,6 +1,5 @@
 import bodyParser from 'body-parser';
 import cluster from 'cluster';
-import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import http from 'http';
@@ -10,11 +9,8 @@ import config from './config/config.json' assert { type: "json" };
 import connectdb from './config/connectdb.js';
 import tourController from './controllers/tourController.js';
 import userController from './controllers/userControllers.js';
-<<<<<<< HEAD
 import cookieParser from 'cookie-parser'
-import historyModel from './models/history.js';
-=======
->>>>>>> 50995d584639216d4b9e4e77742337494eb1aa24
+import historyModel from './models/session.js';
 
 let cpuArr = os.cpus();
 const app = express();
@@ -30,7 +26,7 @@ if (cluster.isWorker){
    app.use(morgan('dev'));
    app.use(cookieParser());
    app.use(async ({ cookies }, _) => {
-      let token = historyModel.find({});
+      let token = historyModel.find({})[0]?.token;
       cookies.token = token;
    })
 
@@ -40,10 +36,7 @@ if (cluster.isWorker){
    app.post('/user/register', userController.register);
    app.post('/user/login', userController.login);
    app.post('/user/logout', userController.logout);
-<<<<<<< HEAD
-   app.post('/tour/getAll', tourController.findAll)
-=======
->>>>>>> 50995d584639216d4b9e4e77742337494eb1aa24
+   app.post('/tour/getAll', tourController.findAll);
    http.createServer(app).listen(port, () => {
          console.log(`app listening ${process.pid} on port ${port}`);
    });

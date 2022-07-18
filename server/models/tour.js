@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
-<<<<<<< HEAD
 import dateValidator from "../validators/dateValidator.js";
-=======
-import dateValidator from "../validators/dateValdator.js";
->>>>>>> 50995d584639216d4b9e4e77742337494eb1aa24
 
 const { Schema, model } = mongoose;
 
@@ -35,12 +31,12 @@ let tourSchema = new Schema({
       minlength: [100, 'desc min length is 100']
    }
 })
-tourSchema.pre('save', () => console.log('tour creating...'))
-tourSchema.post('save', () => console.log('tour created'))
-tourSchema.pre('remove', () => console.log('tour deleting...'))
-tourSchema.post('remove',  () => console.log('tour deleted'))
-tourSchema.pre('updateOne', () => console.log('tour updating...'))
-tourSchema.post('updateOne', () => console.log('tour updated'))
+tourSchema.pre('save', () => console.log('tour creating...'));
+tourSchema.post('save', () => console.log('tour created'));
+tourSchema.pre('remove', () => console.log('tour deleting...'));
+tourSchema.post('remove',  () => console.log('tour deleted'));
+tourSchema.pre('updateOne', () => console.log('tour updating...'));
+tourSchema.post('updateOne', () => console.log('tour updated'));
 let Tour = model('user', tourSchema);
 let p = { Tour, tourSchema }
 export default p;
