@@ -1,7 +1,7 @@
 import React from 'react';
-import '../../public/sass/canceltour.scss';
+import '../../public/sass/CancelTour.scss';
 
-const canceltour = () => {
+const CancelTour = () => {
    return (
       <>
 
@@ -9,4 +9,4 @@ const canceltour = () => {
    );
 };
 
-export default canceltour;
+export default CancelTour;

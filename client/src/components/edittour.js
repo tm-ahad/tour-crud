@@ -1,7 +1,7 @@
 import React from 'react';
-import '../../public/sass/edittour.scss';
+import '../../public/sass/EditTour.scss';
 
-const edittour = () => {
+const EditTour = () => {
    return (
       <>
 
@@ -9,4 +9,4 @@ const edittour = () => {
    );
 };
 
-export default edittour;
+export default EditTour;

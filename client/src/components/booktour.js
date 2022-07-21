@@ -1,7 +1,7 @@
 import React from 'react';
-import '../../public/sass/booktour.scss';
+import '../../public/scss/BookTour.scss';
 
-const booktour = () => {
+const BookTour = () => {
    return (
       <>
 
@@ -9,4 +9,4 @@ const booktour = () => {
    );
 };
 
-export default booktour;
+export default BookTour;

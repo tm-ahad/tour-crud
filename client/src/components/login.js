@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../public/sass/login.scss';
 
-const logintour = () => {
+const LoginTour = () => {
    return (
       <>
 
@@ -9,4 +9,4 @@ const logintour = () => {
    );
 };
 
-export default logintour;
+export default LoginTour;
