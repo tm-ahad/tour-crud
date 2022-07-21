@@ -22,7 +22,7 @@ const tourController = {
          await User.findOne({ email: user.email }, (err, findedUser) => {
             cookies.token = tokenizer(findedUser);
          });
-         res.status(201).send('Tour created on user succsessfully👌!');
+         res.status(201).send('Tour created on user successfully 👌!');
       }
    },
    cancelTour: async ({ body: { id }, cookies }, res) => {
@@ -60,7 +60,7 @@ const tourController = {
                   User.findOne({ email }, (err, findedUser) => {
                      cookies.token = tokenizer(JSON.parse(JSON.stringify(findedUser)));
                   });
-                  res.status(200).send('Tour updated succsessfully👍!');
+                  res.status(200).send('Tour updated successfully 👍!');
             });
             }
       })

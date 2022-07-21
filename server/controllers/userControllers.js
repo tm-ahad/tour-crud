@@ -1,8 +1,8 @@
-import User from '../models/user.js';
 import bcrypt from 'bcrypt';
-import config from '../config/config.json' assert {type: 'json'};
 import tokenizer from '../auth/auth.js';
+import config from '../config/config.json' assert { type: 'json' };
 import sessionModel from '../models/session.js';
+import User from '../models/user.js';
 
 const userController = {
    register: async function(req, res){
@@ -55,13 +55,13 @@ const userController = {
             } else {
                const token = tokenizer(JSON.parse(JSON.stringify(findedUser)))
                if (await bcrypt.compare(password, findedUser.password[0]) ){
-                  console.log('Login succsess');
+                  console.log('Login success');
                   res.cookie('token', token);
                   let allDoc = await historyModel.find({});
                   await sessionModel.updateOne({ id: allDoc[0]._id }, {
                      token
                   });
-                  res.status(200).send('Login succsess😎');
+                  res.status(200).send('Login success😎');
                } else {
                   res.status(400).send('Invalid Password😭');
                }  
@@ -72,7 +72,7 @@ const userController = {
    logout: async ({ cookies }, res) => {
       (async () => {
          cookies = {};
-      }).then(() => res.status(200).send('Logout succsessfull'))
+      }).then(() => res.status(200).send('Logout successfully'))
    }
 };
 export default userController;
